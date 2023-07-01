@@ -56,7 +56,7 @@ export default function Update({ post }: UpdateProps) {
         <title>Hello World! &bull; update </title>
       </Head>
       <main>
-        <h1 className="text-xl font-semibold">Create your post</h1>
+        <h1 className="text-xl font-semibold">Update your post</h1>
         <form
           onSubmit={submitHandler}
           className="relative w-full mt-4 text-center"
