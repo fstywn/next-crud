@@ -43,7 +43,11 @@ export async function getServerSideProps({
     };
   }
 
-  const postReq = await fetch(process.env.NEXT_BASE_URL + "/api/post");
+  const postReq = await fetch(process.env.NEXT_BASE_URL + "/api/post", {
+    headers: {
+      cookie: req.headers.cookie || "",
+    },
+  });
   const result = await postReq.json();
   return {
     props: {
