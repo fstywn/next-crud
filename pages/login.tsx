@@ -13,10 +13,10 @@ export default function Login() {
       <main className="text-center py-20 ">
         <h1 className="font-bold text-3xl mb-4">You have to login first!</h1>
         <button
-          onClick={async () => await signIn()}
+          onClick={async () => await signIn("google")}
           className="bg-white/5 py-2 px-8 rounded flex items-center gap-2 mx-auto"
         >
-          Login with provider &rarr;
+          Login with Google &rarr;
         </button>
       </main>
     </>
