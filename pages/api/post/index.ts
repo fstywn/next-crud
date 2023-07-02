@@ -18,6 +18,15 @@ export default async function handler(
       try {
         const posts = await prisma.post.findMany({
           orderBy: { createdAt: "desc" },
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+              },
+            },
+          },
         });
         res.status(200).json(posts);
       } catch (err: any) {
@@ -34,7 +43,7 @@ export default async function handler(
           throw Error("content cannot be empty!");
         }
         const post = await prisma.post.create({
-          data: { title, content },
+          data: { title, content, userId: session.user.id },
         });
         res.status(200).json({ message: "posted successfully" });
       } catch (err: any) {

@@ -16,6 +16,8 @@ model post {
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Account {
@@ -55,4 +57,5 @@ model User {
   image         String?
   Account       Account[]
   Session       Session[]
+  post          post[]
 }
