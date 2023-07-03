@@ -29,7 +29,7 @@ export default function PostCard({ post }: PostCardProps) {
         image={post.user.image}
         createdAt={post.createdAt}
       />
-      <PostBody title={post.title} content={post.content} />
+      <PostBody content={post.content} />
     </div>
   );
 }
