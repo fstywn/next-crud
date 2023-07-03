@@ -5,7 +5,14 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default function Home({ posts }: { posts: post[] }) {
+interface postProps extends post {
+  user: {
+    id?: string;
+    name?: string;
+    image?: string;
+  };
+}
+export default function Home({ posts }: { posts: postProps[] }) {
   return (
     <>
       <Head>
