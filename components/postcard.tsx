@@ -1,8 +1,17 @@
 import { post } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import PostBody from "./postCard/postBody";
+import PostProfile from "./postCard/postProfile";
+interface postProps extends post {
+  user: {
+    id?: string;
+    name?: string;
+    image?: string;
+  };
+}
 interface PostCardProps {
-  post: post;
+  post: postProps;
 }
 export default function PostCard({ post }: PostCardProps) {
   const router = useRouter();
@@ -15,35 +24,12 @@ export default function PostCard({ post }: PostCardProps) {
   };
   return (
     <div className="p-5  rounded-md border border-white/5 mb-2">
-      <div className="mb-4">
-        <h1 className="font-semibold text-lg">{post.title}</h1>
-        <p className="text-white/60">{post.content}</p>
-      </div>
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-white/20">
-          {new Date(post.createdAt).toDateString()}
-          &nbsp;&bull;&nbsp;
-          {new Date(post.createdAt).toLocaleTimeString()}
-        </span>
-        <div className="text-sm flex items-center gap-2">
-          <button
-            onClick={() => {
-              router.push(`/update/${post.id}`);
-            }}
-            className="bg-blue-800 py-1 px-4 rounded"
-          >
-            Edit
-          </button>
-          <button
-            onClick={() => {
-              deleteHandler(post.id);
-            }}
-            className="bg-red-800 py-1 px-4 rounded"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
+      <PostProfile
+        name={post.user.name}
+        image={post.user.image}
+        createdAt={post.createdAt}
+      />
+      <PostBody title={post.title} content={post.content} />
     </div>
   );
 }
