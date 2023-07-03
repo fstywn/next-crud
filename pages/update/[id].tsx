@@ -12,18 +12,10 @@ interface UpdateProps {
 export default function Update({ post }: UpdateProps) {
   const router = useRouter();
   const { id } = router.query;
-  const [fields, setFields] = useState({
-    title: post.title,
-    content: post.content,
-  });
+  const [content, setContent] = useState(post.content);
   const [loading, setLoading] = useState(false);
-  const inputHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFields({
-      ...fields,
-      [e.target.name]: e.target.value,
-    });
+  const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(e.target.value);
   };
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +26,7 @@ export default function Update({ post }: UpdateProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(fields),
+        body: JSON.stringify({ content }),
       });
       const res = await req.json();
       if (!req.ok) {
@@ -56,26 +48,17 @@ export default function Update({ post }: UpdateProps) {
         <title>Hello World! &bull; update </title>
       </Head>
       <main>
-        <h1 className="text-xl font-semibold">Update your post</h1>
         <form
           onSubmit={submitHandler}
           className="relative w-full mt-4 text-center"
         >
           {loading && <div className="absolute inset-0 w-full h-full z-20" />}
-          <input
-            name="title"
-            value={fields.title}
-            onChange={inputHandler}
-            type="text"
-            className="bg-transparent border border-white/10 w-full py-2 px-4 rounded mb-2"
-            placeholder="title"
-          />
           <textarea
             name="content"
-            value={fields.content}
+            value={content}
             onChange={inputHandler}
             className="bg-transparent border border-white/10 w-full py-2 px-4 rounded h-40 mb-2"
-            placeholder="content"
+            placeholder="what's in your mind?"
           />
           <button className="bg-blue-800 py-2 px-12 mx-auto text-center rounded">
             {loading ? "Sending..." : "Submit"}

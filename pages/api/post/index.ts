@@ -35,15 +35,12 @@ export default async function handler(
       break;
     case "POST":
       try {
-        const { title, content }: { title: string; content: string } = req.body;
-        if (title.trim().length < 1) {
-          throw Error("title cannot be empty!");
-        }
+        const { content }: { content: string } = req.body;
         if (content.trim().length < 1) {
           throw Error("content cannot be empty!");
         }
         const post = await prisma.post.create({
-          data: { title, content, userId: session.user.id },
+          data: { content, userId: session.user.id },
         });
         res.status(200).json({ message: "posted successfully" });
       } catch (err: any) {

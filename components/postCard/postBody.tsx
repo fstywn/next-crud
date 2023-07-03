@@ -1,14 +1,7 @@
-export default function PostBody({
-  title,
-  content,
-}: {
-  title: string;
-  content: string;
-}) {
+export default function PostBody({ content }: { content: string }) {
   return (
     <div className="mb-4">
-      <h1 className="font-semibold text-lg">{title}</h1>
-      <p className="text-white/60">{content}</p>
+      <p className="text-white/75">{content}</p>
     </div>
   );
 }
